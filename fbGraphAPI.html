@@ -1,0 +1,47 @@
+<html>
+<head></head>
+
+<body>Facebook Call Graph API</body>
+
+<script>
+window.fbAsyncInit = function () {
+    FB.init({ appId: '1163587913660070', cookie: true, xfbml: true, oauth: true, version: 'v2.5'});
+
+  if (typeof facebookInit == 'function') {
+      facebookInit();
+  }
+};
+
+(function(d){
+    var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+    js = d.createElement('script'); js.id = id; js.async = true;
+    js.src = "//connect.facebook.net/en_US/all.js";
+    d.getElementsByTagName('head')[0].appendChild(js);
+}(document));
+
+function facebookInit() {
+    FB.login(function(){
+
+        // Note: The call will only work if you accept the permission request
+        FB.api('/me/feed', 'post', {message: 'Hello, world!'});
+        
+        FB.getLoginStatus(function(response) {
+            if (response.status === 'connected') {
+                var accessToken = response.authResponse.accessToken;
+            } 
+        });
+
+       // Search query.
+        var urlCall = "/search?q=Daniel%20Davies&type=user&access_token=".accessToken;
+
+        FB.api(urlCall, function(response) {
+            //you code to execute     
+        });
+
+    }, {scope: 'publish_actions'});
+}
+</script>
+
+<button onclick="facebookInit()">Login with Facebook</button>
+
+</html>
